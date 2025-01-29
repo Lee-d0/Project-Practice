@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Porject</title>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="result" readonly >
+        <div class="buttons">
+            <button class="clear">C</button>
+            <button class="operator">/</button>
+            <button class="operator">*</button>
+            <button class="operator">-</button>
+            <button class="number">7</button>
+            <button class="number">8</button>
+            <button class="number">9</button>
+            <button class="operator">+</button>
+            <button class="number">4</button>
+            <button class="number">5</button>
+            <button class="number">6</button>
+            <button class="equal">=</button>
+            <button class="number">1</button>
+            <button class="number">2</button>
+            <button class="number">3</button>
+            <button class="number">0</button>
+            <button class="decimal">.</button>
+            
+        </div>
+    </div>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0 ;
+
+        }
+        .calculator{
+            background-color: #f2f2f2;
+            padding: 20px;
+            max-width: 400px;
+            margin: 40px auto;
+            border: solid 1px #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+        #result{
+            width: 100%;
+            padding: 10px;
+            font-size: 24px;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) inset;
+            border-radius: 5px;
+        }
+        .buttons{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            margin-top: 10px;
+        }
+        button{
+            padding: 10px;
+            font-size: 24px;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,.3) ;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+        }
+        button:hover{
+            background-color: #ddd;
+        }
+        .clear{
+            background-color: #ff4136;
+            color: #fff;
+        }
+        .number, .decimal{
+            background-color: #fff;
+            color: #333;
+        }
+        .operator{
+            background-color: #0074d9;
+            color:#fff;
+        }
+        .equal{
+            background-color: #01ff70;
+            grid-row: span 3;
+        }
+
+
+    </style>
+    <script>
+        const buttonsEl = document.querySelectorAll("button")//select all the buttons
+
+        const inputFeildEl = document.getElementById("result")//select the input feild
+
+
+        for(let i = 0; i < buttonsEl.length; ++i){//loop through the buttons
+            buttonsEl[i].addEventListener("click", () => {//add an event listener to each button
+                const buttonValue = buttonsEl[i].innerText//get the text of the button
+                if(buttonValue === "C"){//if the button is the clear button
+                clearResult()//clear the result
+                }else if(buttonValue === "="){//if the button is equal to button
+                    calculateResult()//calculate the result
+                }else{
+                    appendValue(buttonValue)//appedn the value of the button
+                }
+
+        })
+        }
+
+        function clearResult(){
+            inputFeildEl.value = ""//clear the input feild
+        }
+
+        function calculateResult(){
+            inputFeildEl.value = eval(inputFeildEl.value)//calculate the result
+        }
+
+        function appendValue(value){
+            inputFeildEl.value += value //append the value to the input feild
+
+        }
+    </script>
+</body>
+</html>

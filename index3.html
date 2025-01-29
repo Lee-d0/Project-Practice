@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="addItem">
+        <input type="button" id="addNew" value="addToList" onclick="addItem()">
+    </div>
+    <div id="output">
+        <h1>Shopping List</h1>
+        <ol id="sList">
+
+        </ol>
+
+    </div>
+    <script>
+        function addItem(){
+            let itemList = document.getElementById("addItem").value//how to get the value of the input
+            let item  = document.createElement("li")//create a new list item
+            item.innerText = itemList//set the text of the list item to the value of the input
+            document.getElementById('sList').appendChild(item)//add the list item to the list
+            document.getElementById("addItem").value = ""//clear the input
+
+        }
+    </script>
+</body>
+</html>

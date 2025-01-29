@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="addFriend">
+        <input type="button" id="addNew" value="addFriend">
+
+        <table id="output">
+            <h1>Friend List</h1>
+            <tr>
+                <th>Friends</th>
+            </tr>
+
+
+        </table>
+        <script>
+            let data = ["Ram", "Shyam", "Sita", "Gita"]//Make an array of names
+            let table = document.getElementById("output")//get the list element
+            for(let i = 9; i < data.length;++i){//loop through the names
+                let tr = document.createElement("tr")//create a new row
+                let td = document.createElement("td")//create a new cell
+                td.innerText = data[i]//set the text of the cell to the name
+                tr.appendChild(td)//add the cell to the row
+                table.appendChild(tr)//add the row to the table
+
+
+            }
+        </script>
+    </div>
+</body>
+</html>

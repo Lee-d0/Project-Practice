@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend List</title>
+</head>
+<body>
+    <h1>Friends</h1>
+    <ul id="myList">
+
+    </ul>
+    <script>
+        let data = ["Ram", "Shyam", "Sita", "Gita"]//Make an array of names
+        let list = document.getElementById("myList")//get the list element
+        for(let i = 0; i < data.length; ++i){//loop through the array
+            let li = document.createElement("li")//create a new list item
+            li.innerText = data[i]//set the text of the list item to the name
+            list.appendChild(li)//add the list item to the list
+        }
+    </script>
+</body>
+</html>
