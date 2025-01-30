@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Year Countdown 2025</title>
+</head>
+<body>
+    <h2>Countdown to New Year</h2>
+    <div class="year">
+        2025
+    </div>
+    <div class="countdown">
+        <div id="day">00</div>
+        <div id="hour">00</div>
+        <div id="minute">00</div>
+        <div id="second">00</div>
+
+    </div>
+    <style>
+        body{
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+            background-color: slateblue;
+            overflow: hidden;
+        }
+        h2{
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-align: center;
+        }
+        .year{
+            font-size: 5rem;
+            color: white;
+            font-weight: bold;
+
+        }
+        .countdown{
+            margin: 30px;
+            background-color: rgba(0, 0, 0, .1);
+            width: 100%;
+            color: white;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .countdown div{
+            margin: 0 15px;
+            font-size: 2.4rem;
+            font-weight: 500;
+            margin-top: -25px;
+            position: relative;
+            text-align: center;
+            width: 100px;
+        }
+        .countdown div::before{
+            content: "";
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            font-size: 1rem;
+            line-height: 35px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            width: 100%;
+            height: 35px;
+
+        }
+
+        .countdown #day::before{
+            content: "days";
+
+        }
+        .countdown #hour::before{
+            content: "hour";
+
+        }
+        .countdown #minute::before{
+            content: "minutes";
+
+        }
+        .countdown #second::before{
+            content: "seconds";
+
+        }
+    </style>
+    <script>
+        const dayEl= document.getElementById("day")//get the day elemnent
+        const hourEl = document.getElementById("hour")//get the hour element
+        const minuteEl = document.getElementById("minute")//get the minute element
+        const secondEl = document.getElementById("second")//get the seconds element
+
+
+        const newYearTime = new Date("Jan 29 2026 00:00:00").getTime()//get teh date of the new year
+        updateCountDown()//call the updateCountDown function
+        function updateCountDown(){//function to update the countdown
+            const now = new Date().getTime()//get the current date and time
+            const gap = newYearTime - now//get the difference between the new year and the current day
+
+
+            const second = 1000;//get the number of milliseconds in a second
+            const minute = second * 60;//get the number of milliseconds in a minute
+            const hour = minute * 60;//get the number of milliseconds in an hour
+            const day = hour * 24;//get the number of milliseconds in a day
+
+
+            const d = Math.floor(gap/day)//get the number of days
+            const h = Math.floor((gap % day) / hour)//get the number of hours 
+            const m = Math.floor((gap % hour) / minute)//get the number of minutes 
+            const s = Math.floor((gap % minute) / second)//get the number of seconds
+            
+            
+
+            dayEl.innerText = d;//set the number of days
+            hourEl.innerText = h;//set the number of hours
+            minuteEl.innerText = m;//set the number of minutes
+            secondEl.innerText = s;//set the number of seconds
+            
+            setTimeout(updateCountDown, 1000)//call the updateCountDown function every second
+
+        }
+    </script>
+    
+</body>
+</html>
