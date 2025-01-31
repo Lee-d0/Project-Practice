@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="heading">English Dictionary</h1>
+        <input type="text" class="input" id="input" placeholder="Search a word" >
+        <p class="info-text" id="info-text">Type a word and press enter</p>
+        <div class="meaning-container" id="meaning-container">
+            <p>Word Title: <span class="title" id="title">___</span></p>
+            <p>Meaning: <span class="meaning" id="meaning">___</span></p>
+            <audio src="" controls id="audio"></audio>
+        </div>
+    </div>
+    <style>
+        body{
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background-color: salmon;
+            font-family: "Courier New", Courier, monospace;
+
+        }
+
+        .container{
+            background-color:  rgba(255, 255, 255, .3);
+            padding: 28px;
+            border-radius: 7px;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
+            width: 90%;
+            margin: 10px;
+            max-width: 450px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .heading{
+            font-size: 28px;
+
+        }
+
+        .input{
+            height: 53px;
+            width: 300px;
+            background-color: rgba(255, 255, 255, .6);
+            border-color: rgba(255, 255, 255, .4);
+            font-size: 16px;
+            padding: 0 42px;
+            border-radius: 5px;
+        }
+
+        .meaning-container{
+            display: none;
+        }
+    </style>
+
+    <script>
+
+
+
+        const inputEl = document.getElementById("input")//get the input element
+        const infoTextEl = document.getElementById("info-text")//get the info text element
+        const meaningContainerEl = document.getElementById("meaning-container")//get the meaning container elemet
+        const titleEl = document.getElementById("title")//get the title element
+        const meaningEl = document.getElementById("meaning")//get the meaning element
+        const audioEl = document.getElementById("audio")//get the audio element
+
+
+
+        async function fetchApi(word){//create a function that fetches the api
+
+            try {
+                infoTextEl.style.display = "block"//show the info text element
+                meaningContainerEl.style.display = "none"//not show the meaning content
+
+          
+                infoTextEl.innerText = `Searching the meaning of "${word}"`//change the info text element to show the word being searched
+                const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`//create a url variable that stores the api url
+            const result = await fetch(url).then((res) => res.json())//fetch the api and convert the responce to json
+
+
+
+            if(result.title){
+                meaningContainerEl.style.display = "block"//show the meaning content
+                titleEl.innerText = word//set the title.element to the word
+                meaningEl.innerText = "N/A"//set the meaning element to the meaning of the word
+                infoTextEl.style.display = "none"//hide the info text element
+                audioEl.style.display = "none"//hide the audio element
+            }else{
+
+                infoTextEl.style.display = "none"//hide the info text element
+                meaningContainerEl.style.display = "block"//show the meaning content
+                audioEl.style.display = "inline-flex"//show the audio element
+                titleEl.innerText = result[0].word//set the title.element to the word
+                meaningEl.innerText = result[0].meanings[0].definitions[0].definition//set the meaning element to the meaning of the word
+    
+                audioEl.src = result[0].phonetics[0].audio
+    
+                
+            }
+
+            } catch (error) {
+                console.log(Error);
+                infoTextEl.innerText = `An error occured try again later`//change the info text element to show the word being searched
+
+                
+            }
+
+
+
+           
+
+        }
+
+        inputEl.addEventListener("keyup", function(event){//add an event listener to the input element
+            if(event.target.value && event.key === "Enter"){//if the input element has a value adn the key pressed is enter
+                fetchApi(event.target.value)//fetch the api
+                }
+            
+        }
+    )
+    </script>
+</body>
+</html>
