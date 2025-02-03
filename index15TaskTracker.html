@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <form class="form">
+        <input type="text" class="input" placeholder="Enter your task" autocomplete="off">
+        <ul class="list">
+            <!-- <li class="checked">Buy Food <i class="fa fa-check-square"></i><i class="fa fa-trash"></i></li>
+            <li>call mom <i class="fa fa-check-square"></i><i class="fa fa-trash"></i></li> -->
+        </ul>
+    </form>
+
+    <style>
+        body{
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            background-color: greenyellow;
+
+        }
+
+        .form{
+            position: absolute;
+            top: 30%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) ;
+            width: 400px;
+            background-color: lightsalmon;
+            border-radius: 10px;
+        }
+
+        .input{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            border: none;
+            outline: none;
+            font-size: 20px;
+            font-family: cursive;
+        }
+
+        .input::placeholder{
+            color: lightgray;
+        }
+
+        .list{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .list li{
+            list-style-type:none ;
+            padding: 20px;
+            font-family: cursive;
+            border-top: dotted;
+            border-color: darkgrey;
+            position: relative;
+        }
+
+        .list li .fa-check-square{
+            color: green;
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .list li .fa-trash{
+            color: red;
+            position: absolute;
+            right: 10px;
+            font-size: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .list li.checked {
+            color: darkgrey;
+            text-decoration: line-through;
+        }
+
+        .list li.checked .fa-check-square{
+            color: darkgrey;
+        }
+        .list li.checked .fa-trash{
+            color: darkgrey;
+        }
+    </style>
+
+    <script>
+        const formEl = document.querySelector('.form');//selecting the form element
+
+        const inputEl = document.querySelector(".input");//selecting the input element
+
+        const ulEl = document.querySelector('.list');//selecting the ul element
+
+       let list = JSON.parse(localStorage.getItem("list"))//getting the item from the local storage
+       
+       list.forEach(task=>{
+        toDoList(task)
+       })
+
+
+        
+        formEl.addEventListener("submit",(event)=>{//adding an event listener to the form element
+            event.preventDefault();//preventing the default behaviour of the form
+            
+            toDoList()//calling the toDoList function
+
+        } )
+
+        function toDoList(task){
+
+            let newTask = inputEl.value;//getting the value of the input element
+
+            if(task){
+                newTask = task.name
+            }
+
+           
+
+            const liEl = document.createElement("li");//creating a new list element
+
+            if(task && task.checked){
+                liEl.classList.add('checked')
+            }
+
+            liEl.innerText = newTask;//setting the text of the list element to the value of the input element
+
+            ulEl.appendChild(liEl);//appending the list element to the ul element
+
+            inputEl.value = "";//clearing the input element
+
+            const checkBtnEl = document.createElement("div");//creating a new div element
+
+            checkBtnEl.innerHTML = `<i class="fa fa-check-square"></i>`;//setting the innerHTML to the check button
+
+            liEl.appendChild(checkBtnEl);//appending the check button to the list element
+
+            const trashEl = document.createElement("div");//creating a new div element
+
+            trashEl.innerHTML = `<i class="fa fa-trash"></i>`;//setting the innerHTML to the trash button
+
+            liEl.appendChild(trashEl);//appending the trash button to the list element
+
+            checkBtnEl.addEventListener("click", ()=>{
+                liEl.classList.toggle("checked");//toggling the class of the list element
+                updateLocalStorage()
+            })
+
+            trashEl.addEventListener("click", ()=>{
+                liEl.remove();//removing the list element 
+                updateLocalStorage()
+            })
+
+            updateLocalStorage();//calling the updateLocalStorage function
+
+        }
+
+        function updateLocalStorage(){
+            const liEls = document.querySelectorAll('li');//selecting all the list elements
+
+            list = [];//creating an empty array
+            
+
+
+            liEls.forEach(liEl =>{
+                list.push({
+                    name: liEl.innerText,//getting the text of the list element
+                    checked: liEl.classList.contains("checked")//checking if the list element has the class checked
+                
+            })
+
+        })
+        localStorage.setItem("list", JSON.stringify(list))//setting the item in the local storage
+        }
+        
+    </script>
+</body>
+
+</html>
