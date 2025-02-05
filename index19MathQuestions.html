@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Questions</title>
+</head>
+<body>
+    <form class="form" id="form">
+        <h4 class="score" id="score">Score 0</h4>
+        <h1 id="question">What is 1 multiply by 1</h1>
+        <input type="text" name="" id="input" class="input" autofocus autocomplete="off">
+        <button class="btn" type="submit">Submit</button>
+
+
+    </form>
+
+    <style>
+        body{
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, lightgreen, lightsalmon);
+            text-align: center;
+        }
+
+        .form{
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            margin: 10px;
+        }
+
+        .input{
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid green;
+            border-radius: 10px;
+            font-size: 20px;
+            outline: transparent;
+        }
+
+        .btn{
+            color: white;
+            background-color: green;
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        .btn:hover{
+            background-color: darkgreen;
+        }
+
+        .score{
+            color: green;
+            text-align: right;
+        }
+    </style>
+
+    <script>
+        const num1 = Math.ceil(Math.random() * 10)
+        const num2 = Math.ceil(Math.random() * 10)
+
+
+        const form = document.getElementById('form');//selecting the form element
+
+        const input = document.getElementById("input");//selecting the input element 
+
+        const scoreEl = document.getElementById("score");//selecting the score element
+
+        const questionEl = document.getElementById("question");//selecting the question element
+
+        let score = JSON.parse(localStorage.getItem('score'));//get the score from the local storage
+      
+
+
+        if(!score){
+            score = 0
+        }
+
+
+        scoreEl.innerText = `Score: ${score}`;//display the score
+
+        questionEl.innerText = `What is ${num1} multiply by ${num2}`;//display the question
+
+        const correctAnswer = num1 * num2;//get the correct answer
+
+        form.addEventListener("submit",()=>{
+            const userAnsw = +input.value
+            if(userAnsw === correctAnswer){
+                score++
+                updateLocalStorage()
+            }else{
+                score--
+                updateLocalStorage()
+            }
+        })
+
+        function updateLocalStorage(){
+            localStorage.setItem('score', JSON.stringify(score))
+        }
+    </script>
+    
+</body>
+</html>

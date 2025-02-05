@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Counter</title>
+</head>
+<body>
+    <main>
+        <div class="counter">
+            <h1>Counter</h1>
+            <span class="num">0</span>
+        </div>
+        <button class="sub" id="minus">-</button>
+        <button class="res" id="reset">Reset</button>
+        <button class="add" id="add">+</button>
+    </main>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+
+
+        }
+
+        .counter{
+            text-align: center;
+        }
+
+        .counter h1{
+            font-size: 50px;
+            margin: 0;
+        }
+
+        .counter span{
+            font-size:100px ;
+        }
+
+        .add{
+            background: green;
+            color: white;
+            width: 50px;
+            padding: 10px;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+
+        }
+        .sub{
+            background: red;
+            color: white;
+            width: 50px;
+            padding: 10px;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+
+
+        }
+        .res{
+            background: gray;
+            color: white;
+            padding: 10px;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+
+
+        }
+
+        .green{
+            color: green;
+        }
+
+        .red{
+            color: red;
+        }
+       
+    </style>
+
+    <script>
+        const numEl = document.querySelector(".num");//selecting the span element
+
+        const addEl = document.getElementById("add");//selecting the add button
+
+        const subEl = document.getElementById("minus");//selecting the subtract button
+
+        const resEl = document.getElementById("reset");//selecting the reset button
+
+        let num = 0;//initializing the counter
+
+        numEl.innerText = num;//displaying the counter
+
+        
+        
+        
+        addEl.addEventListener("click", ()=>{
+            num++;//incrementing the counter
+            numEl.innerText = num;//displaying the counter
+        })
+        
+        
+        subEl.addEventListener("click", ()=>{
+            num--;//decrementing the counter
+            numEl.innerText = num;//displaying the counter
+        })
+        
+        resEl.addEventListener("click", ()=>{
+            num = 0;//resting the counter to 0
+            numEl.innerText = num;//dispaying the counter
+        })
+        
+        if(num < 0){
+            numEl.style.color = "red"
+        }
+
+        if(num > 0){
+            numEl.classList.add("green")
+        }
+
+    </script>
+</body>
+</html>
